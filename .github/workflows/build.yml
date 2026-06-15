@@ -17,6 +17,7 @@ jobs:
         run: |
           docker run --rm -u $(id -u):$(id -g) \
             -v ${{ github.workspace }}:/home/user/app \
+            -w /home/user/app \
             kivy/buildozer \
             buildozer android debug
 
@@ -30,6 +31,7 @@ jobs:
         run: |
           docker run --rm -u $(id -u):$(id -g) \
             -v ${{ github.workspace }}:/home/user/app \
+            -w /home/user/app \
             kivy/buildozer \
             buildozer android release
 
