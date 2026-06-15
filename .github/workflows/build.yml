@@ -46,4 +46,3 @@ steps:
     with:
       name: apk
       path: bin/*.apk
-```
