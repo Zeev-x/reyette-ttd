@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # hilangkan warning Node.js 20
 
     steps:
       - uses: actions/checkout@v4
