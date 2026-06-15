@@ -1,0 +1,44 @@
+#:import dp kivy.metrics.dp
+
+<TikTokLayout>:
+    orientation: "vertical"
+    padding: dp(16)
+    spacing: dp(12)
+
+    Label:
+        text: "TikTok Downloader"
+        font_size: "28sp"
+        bold: True
+        size_hint_y: None
+        height: dp(60)
+
+    TextInput:
+        id: url
+        hint_text: "Paste URL TikTok..."
+        multiline: False
+        size_hint_y: None
+        height: dp(50)
+
+    BoxLayout:
+        size_hint_y: None
+        height: dp(50)
+        spacing: dp(10)
+
+        Button:
+            text: "⬇ Download"
+            on_press: root.download_tiktok()
+
+        Button:
+            text: "🗑 Clear"
+            on_press: root.clear_log()
+
+    ScrollView:
+
+        Label:
+            id: log
+            text: "Siap..."
+            text_size: self.width - dp(10), None
+            size_hint_y: None
+            height: max(self.texture_size[1], self.parent.height)
+            halign: "left"
+            valign: "top"
