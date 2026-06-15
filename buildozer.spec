@@ -9,10 +9,10 @@
 title = TikTokDLR
 
 # (str) Package name
-package.name = com.reyette.ttdl
+package.name = ttdl
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = com.reyette
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -42,7 +42,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,yt-dlp,imageio-ffmpeg
+requirements = python3,kivy,openssl,yt-dlp,imageio-ffmpeg
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -103,16 +103,16 @@ fullscreen = 0
 
 # (list) Permissions
 # (See https://python-for-android.readthedocs.io/en/latest/buildoptions.html for all the supported syntaxes and properties)
-android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
 # (list) features (adds uses-feature -tags to manifest)
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-#android.api = 33
+android.api = 33
 
 # (int) Minimum API your APK / AAB will support.
-#android.minapi = 24
+android.minapi = 24
 
 # (int) Android SDK version to use
 #android.sdk = 20
@@ -214,7 +214,7 @@ android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE
 # (bool) Enable AndroidX support. Enable when 'android.gradle_dependencies'
 # contains an 'androidx' package, or any package from Kotlin source.
 # android.enable_androidx requires android.api >= 28
-#android.enable_androidx = True
+android.enable_androidx = True
 
 # (list) add java compile options
 # this can for example be necessary when importing certain java libraries using the 'android.gradle_dependencies' option
