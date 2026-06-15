@@ -11,28 +11,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build Debug APK
+      - name: Build with Buildozer (Debug)
         uses: digreatbrian/buildozer-action@v1
         with:
           buildozer_version: latest
           python_version: "3.11"
           buildozer_command: android debug
 
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug-apk
-          path: bin/*.apk
+      - name: Ensure Android Build-Tools
+        run: |
+          ANDROID_HOME=$HOME/android-sdk
+          mkdir -p $ANDROID_HOME/cmdline-tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
+          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools
+          export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
+          yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME "platform-tools" "platforms;android-33" "build-tools;33.0.2"
 
-      - name: Build Release APK
+      - name: Build with Buildozer (Release)
         uses: digreatbrian/buildozer-action@v1
         with:
           buildozer_version: latest
           python_version: "3.11"
           buildozer_command: android release
 
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-apk
+          path: bin/*debug*.apk
+
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
-          path: bin/*.apk
+          path: bin/*release*.apk
