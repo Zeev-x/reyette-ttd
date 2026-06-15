@@ -5,7 +5,6 @@ from kivy.clock import Clock
 import threading
 import os
 import yt_dlp
-import imageio_ffmpeg
 
 
 # =========================
@@ -70,8 +69,6 @@ class TikTokLayout(BoxLayout):
         self.add_log(url)
 
         try:
-            ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
-
             ydl_opts = {
                 # 🔥 MAX QUALITY MODE
                 'format': 'bestvideo+bestaudio/best',
@@ -81,9 +78,6 @@ class TikTokLayout(BoxLayout):
 
                 # output file
                 'outtmpl': '/storage/emulated/0/downloads/tiktokDLR/%(title)s.%(ext)s',
-
-                # ffmpeg untuk merge
-                'ffmpeg_location': ffmpeg_path,
 
                 # header biar tidak ditolak server
                 'http_headers': {
