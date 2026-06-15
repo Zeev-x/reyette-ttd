@@ -13,7 +13,8 @@ jobs:
 
       - name: Build Debug APK with Docker
         run: |
-          docker run --rm -u $(id -u):$(id -g) -v ${{ github.workspace }}:/home/user/app \
+          docker run --rm -u $(id -u):$(id -g) \
+            -v ${{ github.workspace }}:/home/user/app \
             kivy/buildozer \
             buildozer android debug
 
@@ -25,7 +26,8 @@ jobs:
 
       - name: Build Release APK with Docker
         run: |
-          docker run --rm -u $(id -u):$(id -g) -v ${{ github.workspace }}:/home/user/app \
+          docker run --rm -u $(id -u):$(id -g) \
+            -v ${{ github.workspace }}:/home/user/app \
             kivy/buildozer \
             buildozer android release
 
