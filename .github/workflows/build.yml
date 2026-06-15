@@ -1,42 +1,20 @@
-name: Build APK
-
 on:
-  workflow_dispatch:
   push:
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-22.04
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true  # hilangkan warning Node.js 20
-
     steps:
       - uses: actions/checkout@v4
+      - name: Build APK
+        uses: digreatbrian/buildozer-action@v2
+        with:
+          python-version: 3.8
+          buildozer-cmd: buildozer -v android debug
 
-      - name: Build Debug APK with Docker
-        run: |
-          docker run --rm -u $(id -u):$(id -g) \
-            -v ${{ github.workspace }}:/home/user/app \
-            -w /home/user/app \
-            kivy/buildozer \
-            buildozer android debug
-
-      - name: Upload Debug APK
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
-          path: bin/*debug*.apk
-
-      - name: Build Release APK with Docker
-        run: |
-          docker run --rm -u $(id -u):$(id -g) \
-            -v ${{ github.workspace }}:/home/user/app \
-            -w /home/user/app \
-            kivy/buildozer \
-            buildozer android release
-
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-apk
-          path: bin/*release*.apk
+          name: package
+          path: ./bin/*.apk
