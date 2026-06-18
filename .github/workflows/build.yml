@@ -36,9 +36,11 @@ jobs:
       - name: Install Android SDK + Build-Tools
         run: |
           ANDROID_HOME=$HOME/android-sdk
-          mkdir -p $ANDROID_HOME/cmdline-tools/latest
+          mkdir -p $ANDROID_HOME/cmdline-tools
           wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
-          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools/latest
+          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools
+          # pindahkan isi ke folder 'latest'
+          mv $ANDROID_HOME/cmdline-tools/cmdline-tools $ANDROID_HOME/cmdline-tools/latest
           export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME \
             "platform-tools" "platforms;android-33" "build-tools;33.0.2"
