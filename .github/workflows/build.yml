@@ -36,17 +36,19 @@ jobs:
       - name: Install Android SDK + Build-Tools
         run: |
           ANDROID_HOME=$HOME/android-sdk
-          mkdir -p $ANDROID_HOME/cmdline-tools
+          mkdir -p $ANDROID_HOME/cmdline-tools/latest
           wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O cmdline-tools.zip
-          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools
-          export PATH=$ANDROID_HOME/cmdline-tools/bin:$PATH
-          yes | $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME \
+          unzip cmdline-tools.zip -d $ANDROID_HOME/cmdline-tools/latest
+          export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_HOME \
             "platform-tools" "platforms;android-33" "build-tools;33.0.2"
 
       - name: Debug build-tools
         run: |
           echo "Isi folder build-tools:"
           ls -R $HOME/android-sdk/build-tools/33.0.2 || true
+          echo "Cek versi aidl:"
+          $HOME/android-sdk/build-tools/33.0.2/aidl --version || true
 
       - name: Install Python deps
         run: |
